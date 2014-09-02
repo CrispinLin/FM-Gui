@@ -22,7 +22,7 @@ function varargout = Main(varargin)
 
 % Edit the above text to modify the response to help Main
 
-% Last Modified by GUIDE v2.5 19-Apr-2014 20:04:22
+% Last Modified by GUIDE v2.5 01-Sep-2014 14:28:30
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -471,3 +471,55 @@ function edit1_CreateFcn(hObject, eventdata, handles)
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
 end
+
+
+% --- Executes on button press in drawPeak.
+function drawPeak_Callback(hObject, eventdata, handles)
+% hObject    handle to drawPeak (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global Map;
+[mapWidth,mapHeight]=size(Map);
+maxh=max(max(Map));
+imgMap=uint8(zeros(mapHeight,mapWidth,3));
+peak=peakDetect(Map);
+for x=1:1:mapWidth
+	for y=1:1:mapHeight
+		if round(Map(x,y))>0
+			imgMap(y,x,2)=uint8(100+round(Map(x,y)*150/maxh));
+		else
+			imgMap(y,x,3)=uint8(150);
+		end
+		if (peak(y,x)>0)
+			imgMap(y,x,1)=uint8(255);	%xy inversed?
+        end
+	end
+end
+im=imshow(imgMap);
+
+
+% --- Executes on button press in dipPeak.
+function dipPeak_Callback(hObject, eventdata, handles)
+% hObject    handle to dipPeak (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+global Map;
+[mapWidth,mapHeight]=size(Map);
+imgMap=uint8(zeros(mapHeight,mapWidth,3));
+maxh=max(max(Map));
+for x=1:1:mapWidth-3
+	for y=1:1:mapHeight-3
+		if round(Map(x,y))>0
+			imgMap(y,x,2)=uint8(100+round(Map(x,y)*150/maxh));
+		else
+			imgMap(y,x,3)=uint8(150);
+        end
+	end
+end
+imgMap2=double(rgb2gray(imgMap));
+for x=2:1:mapHeight-1
+	for y=2:1:mapWidth-1
+        imgMap2(x,y)=imgMap(x,y)*9-imgMap(x-1,y-1)-imgMap(x-1,y)-imgMap(x,y-1)-imgMap(x+1,y+1)-imgMap(x+1,y)-imgMap(x+1,y-1)-imgMap(x,y+1)-imgMap(x-1,y+1);
+    end
+end
+im=imshow(imgMap2,[]);
