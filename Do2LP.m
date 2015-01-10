@@ -1,5 +1,5 @@
 % Distance of 2 LOS Points
-function Do2LP(map,X1,Y1,X2,Y2,HT,HR)
+function d=Do2LP(map,X1,Y1,X2,Y2,HT,HR)
 	[xl,yl]=makeLine(X1,Y1,X2,Y2);
 	d=LOSDistance(map,xl,yl,HT,HR);
 end
