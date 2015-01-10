@@ -1,7 +1,7 @@
 % Distance of 2 LOS Points
 function Do2LP(map,X1,Y1,X2,Y2,HT,HR)
-	[xl,yl]=makeLine(X1,Y1,X2,Y2)
-	d=LOSDistance(map,xl,yl,HT,HR)
+	[xl,yl]=makeLine(X1,Y1,X2,Y2);
+	d=LOSDistance(map,xl,yl,HT,HR);
 end
 
 function [xlout,ylout]=makeLine(X1,Y1,X2,Y2)
@@ -31,18 +31,18 @@ function Distance=LOSDistance(map,xl,yl,HT,HR);
 	deltaW=100;
 	deltaH=100;
 	alpha=-power(10,10);%what for?
-	N=length(xl)    %not the same N
+	N=length(xl);    %not the same N
 
 	if N<2
 		Distance=0;
 		return;
 	end
 
-	l =sqrt(power((xl(1)-xl(N))*deltaW,2)+power((yl(1)-yl(N))*deltaH,2))
-	CosC=cos(l/D*2)
-	a=D/2+finemap(xl(1),yl(1),map)+HT
-	b=D/2+finemap(xl(N),yl(N),map)+HR
-	c=sqrt(a^2+b^2-2*a*b*CosC)
+	l =sqrt(power((xl(1)-xl(N))*deltaW,2)+power((yl(1)-yl(N))*deltaH,2));
+	CosC=cos(l/D*2);
+	a=D/2+finemap(xl(1),yl(1),map)+HT;
+	b=D/2+finemap(xl(N),yl(N),map)+HR;
+	c=sqrt(a^2+b^2-2*a*b*CosC);
 	Distance=c;
 
 	if N==2
