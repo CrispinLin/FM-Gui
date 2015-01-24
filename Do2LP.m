@@ -1,4 +1,8 @@
-% Distance of 2 LOS Points
+% Calculate Distance of 2 LOS Points
+% input:map,coordinate of Point1 and Point2,Height of Transmitter and Receiver
+% output:if los then Distance between this 2 points 
+% 				else 0
+
 function d=Do2LP(map,X1,Y1,X2,Y2,HT,HR)
 	[xl,yl]=makeLine(X1,Y1,X2,Y2);
 	d=LOSDistance(map,xl,yl,HT,HR);
@@ -49,7 +53,7 @@ function Distance=LOSDistance(map,xl,yl,HT,HR);
 		return;
 	end
 
-	CosB=(a^2+c^2-b^2)/(2*a*b);
+	CosB=(a^2+c^2-b^2)/(2*a*c);
 	B=acos(CosB);
 	SinB=sin(B);
 

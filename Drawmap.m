@@ -2,7 +2,6 @@ function Drawmap(Mapdata,losArr)
 	global mapWidth;
 	global mapHeight;
 	global los;
-	global alpha;
 	global atData;
 	global sel;
 	maxh=max(max(Mapdata));
