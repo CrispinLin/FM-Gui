@@ -3,13 +3,17 @@ function [T,D,B,R]=FormSubMat(Dis,gain,f)
 	TD=Dis(1,2:L);
 	BR=Dis(2:L,2:L);
 	% cal B, R
-	for k=1:1:length(BR)
-	    OutdegreeBR(k)=length(find(BR(k,:)>0));
-	end
+	% for k=1:1:length(BR)
+	%     OutdegreeBR(k)=length(find(BR(k,:)>0));
+	% end
+	OutdegreeBR=sum((BR>0)');
 	N=length(BR)-1;
 	c=3*(10^8);
 	B=zeros(N,N);
 	R=zeros(N,1);
+
+% REWRITE FOR WITH MATRIX!
+
 	for k=1:1:N
 		for l=1:1:N
 			if BR(k,l)>0 
