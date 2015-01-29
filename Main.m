@@ -70,6 +70,16 @@ atData=AntenneData;
 atDataLen=size(atData.NAME);
 atDataLen=atDataLen(1)
 
+load('Mapdata_Zero.mat');
+global Map;
+global mapWidth;
+global mapHeight;
+global los;
+Map=transpose(data);
+[mapWidth,mapHeight]=size(Map)
+los=zeros(mapWidth+1,mapHeight+1);
+clearSelected;
+
 
 
 % --- Outputs from this function are returned to the command line.
@@ -336,16 +346,15 @@ global mapHeight;
 
 losSUM=zeros(mapWidth+1,mapHeight+1);
 cutoffSUM=zeros(mapWidth+1,mapHeight+1);
-
 for i=1:atDataLen
 	if sel(i)==true
 		[x,y]=map2image(atData.UTMX(i),atData.UTMY(i));
 		curlos=findFineLOS(Map,los,x,y,atData.HEIGHT(i),2);
         losSUM=losSUM+curlos;
-    if cutoff~=0
-    curcutoff=findCutoff(Map,curlos,x,y,atData.HEIGHT(i),2,3,cutoff);
-    cutoffSUM=cutoffSUM+curcutoff;
-    end
+	    if cutoff~=0
+		    curcutoff=findCutoff(Map,curlos,x,y,atData.HEIGHT(i),2,3,cutoff);
+		    cutoffSUM=cutoffSUM+curcutoff;
+	    end
 	end
 end
 losSUM(losSUM>1)=1;

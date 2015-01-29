@@ -35,6 +35,6 @@ function [T,D,B,R]=FormSubMat(Dis,gain,f)
 		end
 	end
 	if TD(N+1)>0
-		D=1/(1+TD(N+1))*sqrt(gain^2/OutdegreeTD)*exp(-1i*2*pi*TD(N+1)/c*f);
+		D=1/(1+TD(N+1))*sqrt(gain^2/OutdegreeTD)/10*exp(-1i*2*pi*TD(N+1)/c*f);
 	end
 end

@@ -13,7 +13,13 @@ function [X,Y]=GenScatterPoints(map,x1,x2,y1,y2,d)
 	% 		end
 	% 	end
 	% end
+
+
 	[X,Y]=find(map(x1:d:x2,y1:d:y2)>0);
+	
+	% [X,Y]=find(map(x1:d:x2,y1:d:y2));
+		
+
 	X=((X-1)*d+x1)';
 	Y=((Y-1)*d+y1)';
 end

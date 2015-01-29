@@ -1,4 +1,4 @@
-function Drawmap(Mapdata,losArr)
+function Drawmap(Mapdata)
 	global mapWidth;
 	global mapHeight;
 	global los;
@@ -42,8 +42,8 @@ function Drawmap(Mapdata,losArr)
 	Rightclick=uicontextmenu;
 	uimenu(Rightclick,'label','Find Los Here','callback',@FindLOSherClick);
 	uimenu(Rightclick,'label','menu2');
-	set(im,'uicontextmenu',Rightclick);
-	set(gcf,'WindowButtonDownFcn',@ButttonDownFcn);
+	set(gcf,'uicontextmenu',Rightclick);
+	% set(gcf,'WindowButtonDownFcn',@ButttonDownFcn);
 end
 
 
@@ -121,7 +121,7 @@ function imgout=drawSel(x2,y2,img)
 end
 
 
-%% drawContour: function description
+
 function [Mapout] = drawContour(imgMap)
 	global Map;
 	global mapHeight;

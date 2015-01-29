@@ -11,7 +11,7 @@ tic;
     if cutoff~=0
         los=findCutoff(Map,los,lastX,lastY,10,2,3,cutoff);
     end
-    Drawmap(Map,los);
+    Drawmap(Map);
 	disp('Map Refreshed');
 toc;
 end

@@ -44,8 +44,8 @@ function Distance=LOSDistance(map,xl,yl,HT,HR);
 
 	l =sqrt(power((xl(1)-xl(N))*deltaW,2)+power((yl(1)-yl(N))*deltaH,2));
 	CosC=cos(l/D*2);
-	a=D/2+finemap(xl(1),yl(1),map)+HT;
-	b=D/2+finemap(xl(N),yl(N),map)+HR;
+	a=D/2+map(round(xl(1)),round(yl(1)))+HT;
+	b=D/2+map(round(xl(N)),round(yl(N)))+HR;
 	c=sqrt(a^2+b^2-2*a*b*CosC);
 	Distance=c;
 
@@ -53,22 +53,36 @@ function Distance=LOSDistance(map,xl,yl,HT,HR);
 		return;
 	end
 
-	CosB=(a^2+c^2-b^2)/(2*a*c);
-	B=acos(CosB);
+	% CosB=(a^2+c^2-b^2)/(2*a*c);
+	% B=acos(CosB);
+
+	B=acos((a^2+c^2-b^2)/(2*a*c));
 	SinB=sin(B);
 
+	
 	if N>2 
 		dR=sqrt(power((xl(1)-xl(2))*deltaW,2)+power((yl(1)-yl(2))*deltaH,2));
+
 		for ct=1:1:N-2
 			HC=a*SinB/sin(pi-dR/D*2*ct-B);
-			if HC<(D/2+finemap(xl(ct+1),yl(ct+1),map));
+			if HC<(D/2+map(round(xl(ct+1)),round(yl(ct+1))));
 				Distance=0;
 				return;
 			end
 		end
+
+		% !how to rewrite this for into Matrix?
+
+		% ct=linspace(1,N-2,1);
+		% HC=a*SinB/sin(pi-dR/D*2.*ct-B);
+		% HC=HC-(D/2+map(round(xl(ct+1)),round(yl(ct+1))));%FAIL
+		% if find(HC<0)
+		% 	Distance=0;
+		% 	return;
+		% end
 	end
 end
 
-function [finemap]=finemap(x,y,map)
-	finemap=map(round(x),round(y));
-end
+% function [finemap]=finemap(x,y,map)
+% 	finemap=map(round(x),round(y));
+% end
